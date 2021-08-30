@@ -1,0 +1,44 @@
+<div class="col-md-5">
+  <%= form_with(model: params[:customer_id].present? ? [@customer, reminder] : reminder, local: true) do |form| %>
+    <% if reminder.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(reminder.errors.count, "error") %> prohibited this reminder from being saved:</h2>
+
+        <ul>
+        <% reminder.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :reminder_type_id %>
+      <%= form.select :reminder_type_id, ReminderType.all.map{|r| [r.name, r.id]},{prompt: "Select reminder type"}, {class: "form-control"} %>
+    </div>
+
+    <div class="field">
+      <%= form.label :occurence %>
+      <%= form.select :occurence, Reminder.occurences.map{|k,v| [k,v]}.map{|arr| [arr[0].capitalize.gsub('_',' '),arr[0]]},{prompt: "Select "}, {class: "form-control"} %>
+    </div>
+
+    <div class="field">
+      <%= form.label :reminder_content %>
+      <%= form.text_field :reminder_content, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :expiry_date %>
+      <%= form.date_select :expiry_date %>
+    </div>
+    <% unless params[:customer_id].present? %>
+      <div class="field">
+        <%= form.label :customer_id %>
+        <%= form.select :customer_id, Customer.all.map {|c| [c.name, c.id]},{prompt: "Select Customer"}, {class: "form-control"} %>
+      </div>
+    <% end %>
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>

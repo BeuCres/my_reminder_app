@@ -1,0 +1,35 @@
+<h1>Customers</h1>
+
+
+<%= link_to 'Todays Reminders', today_reminders_path(@customer),class: "btn btn-warning" if @customer %> 
+<%= link_to 'Upcoming', upcoming_reminders_path(@customer),class: "btn btn-success" if @customer %> 
+
+<%= link_to 'New Customer', new_customer_path , class: "text-success" %>
+<table class = "table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Phone</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @customers.each do |customer| %>
+      <tr>
+        <td><%= customer.name %></td>
+        <td><%= customer.phone %></td>
+        <td><%= link_to 'Reminders', customer_reminders_path(customer) %></td>
+        <td><%= link_to 'Show', customer, class: "badge rounded-pill bg-info" %></td>
+        <td><%= link_to 'Print', print_customer_path(customer, format: :pdf), class: "badge rounded-pill bg-warning", target: "blank" %></td>
+        <td><%= link_to 'Edit', edit_customer_path(customer), class: "badge rounded-pill bg-success"  %></td>
+        <td><%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' }, class: "badge rounded-pill bg-danger"  %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @customers, renderer:  WillPaginate::ActionView::BootstrapLinkRenderer %>
+<%= form_with url: customers_path(params.permit[:filter_by]) ,html: {id: 'paginet', method: :get} do %>
+<%= select_tag :per_page,options_for_select([2,5,10],params[:per_page] || 5),{onchange: "this.form.submit()"} %>
+<% end %>

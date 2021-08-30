@@ -1,0 +1,22 @@
+<p>
+  <strong>Reminder type:</strong>
+  <%= @reminder.reminder_type.name %>
+</p>
+
+<p>
+  <strong>Reminder content:</strong>
+  <%= @reminder.reminder_content %>
+</p>
+
+<p>
+  <strong>Expiry date:</strong>
+  <%= @reminder.expiry_date %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @reminder.customer.name %>
+</p>
+
+<%= link_to 'Edit', edit_reminder_path(@reminder) %> |
+<%= link_to 'Back', reminders_path %>

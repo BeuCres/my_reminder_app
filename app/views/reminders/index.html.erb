@@ -1,0 +1,16 @@
+<h3><%= @customer.name if @customer %> Reminders</h3>
+<%= link_to 'New Reminder',params[:customer_id].present? ? new_customer_reminder_path : new_reminder_path %>
+<ul class="nav nav-tabs">
+  <li class="nav-item ">
+    <a class="nav-link text-danger <%= 'active' if params[:filter_by] == 'today' %>" href="<%= @customer ? customer_reminders_path(@customer, filter_by: 'today') : reminders_path(filter_by: 'today') %>">Today</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-warning <%= 'active' if params[:filter_by] == 'week' %>" href="<%= @customer ? customer_reminders_path(@customer, filter_by: 'week' ) : reminders_path(filter_by: 'week') %>"> Week</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-success <%= 'active' if params[:filter_by] == 'month' %>" href="<%= @customer ? customer_reminders_path(@customer, filter_by: 'month') : reminders_path(filter_by: 'month') %>"> Month</a>
+  </li>
+</ul>
+<%= render "reminders", reminders: @reminders %> <br>
+<p><%= link_to 'Print', print_reminder_path(@reminder, format: :pdf), class: "badge rounded-pill bg-info", target: "blank" %></p>
+

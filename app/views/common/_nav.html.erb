@@ -1,0 +1,27 @@
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Reminder App</a>
+      
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="<%=root_path %>">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= customers_path %>">Customers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= reminders_path %>"> Reminders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= reminder_types_path %>"> Reminder Types</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= reminder_types_path %>"> Upcoming Reminders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= today_reminders_path %>"> Today</a>
+        </li>
+      </ul>
+      
+  </div>
+</nav>

@@ -1,0 +1,28 @@
+<table class="table" style="min-height: 500px">
+  <thead>
+    <tr>
+      <th>Reminder type</th>
+      <th>Reminder content</th>
+      <th>Expiry date</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% reminders.each do |reminder| %>
+      <tr>
+        <td><%= reminder.reminder_type.name %></td>
+        <td><%= reminder.reminder_content %></td>
+        <td><%= reminder.expiry_date %></td>
+        <td><%= link_to 'Show', reminder , class:"badge rounded-pill bg-info text-dark" %></td>
+        <td><%= link_to 'Edit', edit_reminder_path(reminder), class: "badge rounded-pill bg-success" %></td>
+        <td><%= link_to 'Destroy', reminder, method: :delete, data: { confirm: 'Are you sure?' }, class: "badge rounded-pill bg-danger" %></td>
+        <td><%= link_to 'Close', @customer ? close_customer_reminder_path(@customer,reminder) : close_reminder_path(reminder), class: "badge rounded-pill bg-warning" if reminder.open?  %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate reminders, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+<%= form_with url: @customer ? customer_reminders_path(@customer, params.permit[:filter_by]) : reminders_path(params.permit[:filter_by]),html: {id: 'paginet', method: :get} do %>
+<%= select_tag :per_page,options_for_select([10,20,30],params[:per_page] || 10),{onchange: "this.form.submit()"} %>
+<% end %>
